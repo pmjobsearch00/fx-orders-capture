@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css"
+	th:href="@{css/bootstrap.min.css}" />
+
+<script type="text/javascript" src="/js/bootstrap.min.js"
+	th:src="@{/js/bootstrap.min.js}"></script>
+<script type="text/javascript" src="/js/jquery.min.js"
+	th:src="@{/js/jquery.min.js}"></script>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>FX-ORDER</title>
+
+<style>
+
+::-webkit-scrollbar {
+	width: 5px;
+}
+
+::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: darkgrey;
+	outline: 1px solid slategrey;
+}
+</style>
+
+</head>
+
+<script type="text/javascript">
+
+
+
+function doCancel(id) {
+	location.reload();
+}
+
+</script>
+
+<body>
+
+	<nav class="navbar navbar-inverse">
+		<h4 align="center"
+			style="font-size: 25px; color: #6A5ACD; margin-top: 15px;">
+			FX Order Application</h4>
+	</nav>
+
+	<div class="container">
+
+		<div class="row no-gutter">
+			<div class="col-sm-2">
+
+				<div class="panel panel-default"
+					style="height: 82vh; position: fixed; overflow-y: scroll; overflow-x: hidden; width: 14%; border: none; box-shadow: none;">
+
+
+					<div class="panel-body"
+						style="overflow-y: hidden; overflow-x: hidden;">
+
+                        <a th:class="@{btn btn-primary btn-block}" th:style="@{text-align: left}" th:href="@{/newOrder}">New Order</a>                         
+                        <a th:class="@{btn btn-primary btn-block}" th:style="@{text-align: left}" th:href="@{/searchOrders}">Search Orders</a> 
+						<hr>
+					</div>
+
+				</div>
+			</div>
+
+			<div class="col-sm-10">
+
+				<hr>
+
+				<h4 align="center"
+					style="font-size: 25px; color: #6A5ACD; margin-top: 1px;">New
+					Order</h4>
+
+				<hr>
+
+				<form th:object="${orderDTO}" th:action="@{saveOrder}" action="#"
+					method="post"
+					th:style="@{background-color:#F8F8FF; padding: 10px 50px;} ">
+
+					<div class="row">
+
+						<div class="col-xs-3">
+							<label for="j_curr">Currency Pair</label> <select
+								class="form-control" th:field="*{currency}">
+								<option value=""></option>
+								<option value="GBP/USD">GBP/USD</option>
+							</select>
+						</div>
+
+						<div class="col-xs-3">
+							<label for="j_bidorask">BID or ASK</label> <select
+								class="form-control" th:field="*{bidOrAsk}">
+								<option value=""></option>
+								<option value="BID">BID</option>
+								<option value="ASK">ASK</option>
+							</select>
+						</div>
+
+                        <div class="col-xs-3">
+                        <label for="j_price">Price</label> 
+                        <input type="text" th:field="*{price}"
+                                placeholder="Enter price (E.g. 1.2100)">
+                        </div>
+
+						<div class="col-xs-3">
+						<label for="j_amount">Amount</label> 
+						<input type="text" th:field="*{amount}"
+								placeholder="Enter amount (E.g. 8500)">
+						</div>
+
+					</div>
+
+                    <br>
+                    <div class="row">
+                    <div class="col-xs-10"></div>
+                    <div class="col-xs-1">
+                    <button type="button" class="btn btn-default" id="cancelButton" onclick="doCancel(this.id)">Cancel</button>
+                    
+                    </div>
+                    <div class="col-xs-1">
+                    <input type="submit" class="btn btn-primary" value="Save"></input>
+                    </div>
+                    </div>
+				</form>
+
+                 
+                <br><th:block th:if="${orderMsg != null}"><div class="alert alert-info fade in"><strong><span th:text="${orderMsg}"></span></strong></div></th:block>
+
+
+			</div>
+
+		</div>
+
+	</div>
+
+
+</body>
+</html>
